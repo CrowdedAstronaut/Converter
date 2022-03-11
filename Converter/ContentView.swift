@@ -14,6 +14,43 @@ struct ContentView: View {
 	
 	let units = ["Feet", "Kilometers", "Meters", "Miles", "Yards"]
 	
+	var result: String {
+		let inputToMetersMultiplier: Double
+		let metersToOutputMultiplier: Double
+		
+		switch inputUnit {
+		case "Feet":
+			inputToMetersMultiplier = 0.3048
+		case "Kilometers":
+			inputToMetersMultiplier = 1000
+		case "Miles":
+			inputToMetersMultiplier = 1609.34
+		case "Yards":
+			inputToMetersMultiplier = 0.9144
+		default:
+			inputToMetersMultiplier = 1.0
+		}
+		
+		switch outputUnit {
+		case "Feet":
+			metersToOutputMultiplier = 3.28084
+		case "Kilometers":
+			metersToOutputMultiplier = 0.001
+		case "Miles":
+			metersToOutputMultiplier = 0.000621371
+		case "Yards":
+			metersToOutputMultiplier = 1.09361
+		default:
+			metersToOutputMultiplier = 1.0
+		}
+		
+		let inputInMeters = input * inputToMetersMultiplier
+		let output = inputInMeters * metersToOutputMultiplier
+		
+		let outputString = output.formatted()
+		return "\(outputString) \(outputUnit.lowercased())"
+	}
+	
 	var body: some View {
 		NavigationView {
 			Form {
@@ -37,10 +74,11 @@ struct ContentView: View {
 				}
 				
 				Section {
-					Text("???")
+					Text(result)
 				} header: {
 					Text("Result")
 				}
+				
 			}
 			.navigationTitle("Converter")
 		}
