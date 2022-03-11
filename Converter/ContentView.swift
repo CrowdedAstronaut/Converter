@@ -11,6 +11,7 @@ struct ContentView: View {
 	@State private var input = 100.0
 	@State private var inputUnit = "Meters"
 	@State private var outputUnit = "Kilometers"
+	@FocusState private var inputIsFocused: Bool
 	
 	let units = ["Feet", "Kilometers", "Meters", "Miles", "Yards"]
 	
@@ -81,6 +82,16 @@ struct ContentView: View {
 				
 			}
 			.navigationTitle("Converter")
+			.toolbar {
+				ToolbarItemGroup(placement: .keyboard) {
+					Spacer()
+					
+					Button("Done") {
+						inputIsFocused = false
+					}
+				}
+			}
+			
 		}
 	}
 	
